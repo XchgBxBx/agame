@@ -5,8 +5,8 @@
 
 #include <SDL.h>
 
-SDL_Window		*mainWindow = 0;
-SDL_Renderer	*renderer = 0;
+SDL_Window		*mainWindow = nullptr;
+SDL_Renderer	*renderer = nullptr;
 
 //is the game running?
 bool running = false;
@@ -23,7 +23,7 @@ bool AGInitialize(const char* windowTitle, int xPos, int yPos, int width, int he
 	{
 		mainWindow = SDL_CreateWindow(windowTitle, xPos, yPos, width, height, SDL_WINDOW_SHOWN);
 
-		if (mainWindow != 0)
+		if (mainWindow != nullptr)
 		{
 			renderer = SDL_CreateRenderer(mainWindow, -1, 0);
 		}
@@ -47,7 +47,7 @@ void AGRender()
 // entry point
 int main(int argc, char **argv)
 {
-	if (AGInitialize("agame", 50, 50, 800, 600) == false)
+	if (!AGInitialize("agame", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600))
 	{
 		return 1; // initialization failed
 	}
