@@ -3,14 +3,13 @@
 // 2017-09-21
 //
 
-#include <SDL.h>
+#include "Config.h"
 
 SDL_Window		*mainWindow = nullptr;
 SDL_Renderer	*renderer = nullptr;
 
 //is the game running?
 bool running = false;
-
 
 // Initializes SDL, create a window and a renderer
 bool AGInitialize(const char* windowTitle, int xPos, int yPos, int width, int height)
@@ -45,7 +44,11 @@ void AGRender()
 }
 
 // entry point
+#ifdef _WIN32
+int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdLine, int cmdShow)
+#else
 int main(int argc, char **argv)
+#endif
 {
 	if (!AGInitialize("agame", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600))
 	{
