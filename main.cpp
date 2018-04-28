@@ -31,7 +31,6 @@ bool AGInitialize(const char* windowTitle, int xPos, int yPos, int width, int he
 	}
 }
 
-
 // 
 void AGRender()
 {
