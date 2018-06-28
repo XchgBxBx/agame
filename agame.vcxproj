@@ -21,6 +21,11 @@
   <ItemGroup>
     <ClCompile Include="lumberjack\Source.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lumberjack\Action.hpp" />
+    <ClInclude Include="lumberjack\Entity.hpp" />
+    <ClInclude Include="lumberjack\Variables.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{1D05BFD4-A521-43E5-A748-3D17B0209521}</ProjectGuid>

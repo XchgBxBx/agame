@@ -4,31 +4,53 @@
 //
 #include <iostream>
 #include <memory>
-#include <vector>
 
-class Entity
-{
-public:
-    Entity() {}
-
-    virtual void iteration() 
-    {
-        std::cout << "entity iteration" << std::endl;
-    }
-};
+#include "Variables.h"
+#include "Entity.hpp"
 
 class Tree: public Entity
 {
 public:
+    int height;
+    int it_to_grow;
 
-    int height = 0;
+    Tree()
+    {
+        height = 2;
+        it_to_grow = 0;
+
+        Action count_to_grow{
+            [this]()
+            {
+                it_to_grow++;
+            }
+        };
+
+        Action grow{
+            [this]()
+            {
+                if (it_to_grow == TREE_ITERATIONS_PER_GROW)
+                {
+                    height++;
+                    it_to_grow = 0;
+                }
+
+                // reached max height, no need for actions
+                if (height == TREE_MAX_HEIGHT)
+                    behavior_list.clear();
+            }
+        };
+
+        behavior_list.push_back(count_to_grow);
+        behavior_list.push_back(grow);
+    }
 
     void iteration()
     {
-        std::cout << "tree iteration" << std::endl;
+        std::cout << "tree id" << id << " | height: " << height << std::endl;
+        execute_behavior_list();
     }
 };
-
 
 
 std::vector<Entity*> entities;
@@ -45,6 +67,7 @@ void initialize()
 void global_iteration()
 {
     std::cout << "\n>> iteration " << iterations << std::endl;
+
     for (auto& entity : entities)
     {
         entity->iteration();
@@ -57,7 +80,7 @@ int main(int argc, char **argv)
 {
     initialize();
 
-    for (int i = 0; i < 100; ++i)
+    for (int i = 0; i < MAX_ITERATIONS; ++i)
     {
         global_iteration();
     }
