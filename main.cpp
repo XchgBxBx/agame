@@ -14,7 +14,7 @@ bool running = false;
 // Initializes SDL, create a window and a renderer
 bool AGInitialize(const char* windowTitle, int xPos, int yPos, int width, int height)
 {
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+	if (SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER ) < 0)
 	{
 		return false; // could not initialize	
 	}
@@ -42,6 +42,17 @@ void AGRender()
 	SDL_Delay(10000);
 }
 
+
+// shutdown and cleanup routines
+void AGQuit()
+{
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(mainWindow);
+	SDL_Quit();
+}
+
+
+
 // entry point
 #ifdef _WIN32
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdLine, int cmdShow)
@@ -64,7 +75,7 @@ int main(int argc, char **argv)
 	//}
 
 
-	SDL_Quit();
+	AGQuit();
 
 	return 0;
 }
